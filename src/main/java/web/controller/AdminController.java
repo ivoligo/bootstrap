@@ -2,6 +2,7 @@ package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,10 +11,7 @@ import web.model.User;
 import web.service.RoleService;
 import web.service.UserService;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -34,7 +32,10 @@ public class AdminController {
        @GetMapping
     public String allUsers(Model model){
         List<User> listUsers = userService.getAllUser();
+
         model.addAttribute("users", listUsers);
+           User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+           model.addAttribute("user", user);
 
         return "/admin";
     }
@@ -72,24 +73,18 @@ public class AdminController {
 
     @PostMapping("/edit/{id}")
     public String editUser(
-//            @PathVariable("id") long id, Model model
              @ModelAttribute("user") User user
     )
     {
 
-        // для проверки
-        System.out.println(user.getRoleSet());
-
-        //Установка новых ролей
-//        Set<Role> roleSet = new HashSet<>();
-//        for (Role role: user.getRoleSet()) {
-//            System.out.println(role);
-//            role = roleService.findRoleByName(role.getRolesName());
-//            roleSet.add(role);
-//            System.out.println(role.getRolesName());
-//        }
-
-//        user.setRoleSet(roleSet);
+        Set<Role> roleSet = new HashSet<>();
+        for (Role role: user.getRoleSet()) {
+            System.out.println(role);
+            role = roleService.findRoleByName(role.getRolesName());
+            System.out.println(role);
+            roleSet.add(role);
+        }
+        user.setRoleSet(roleSet);
         if(!userService.findUserByEmail(user.getEmail()).isPresent()
                 || userService.findUserByEmail1(user.getEmail()).getId().equals(user.getId()))
         {
@@ -113,5 +108,10 @@ public class AdminController {
     )
     {
         return "/login";
+    }
+
+    @GetMapping("/user")
+    public String userPage( ){
+        return "/admin";
     }
 }

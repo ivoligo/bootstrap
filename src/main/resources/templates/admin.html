@@ -12,7 +12,17 @@
 
 
 <nav class="navbar navbar-dark bg-dark">
-    <div class="col-8">
+    <div class="col-8" >
+        <form th:action="@{/admin}">
+            <span style="color:white"><b>
+                <td  th:text="${user.email}"> </b> with roles:</span>
+            <span style="color:yellow">
+                <td   th:each="role : ${user.roleSet}" >
+                    <span th:text="${role.rolesName}"></span>
+                </td>
+            </span>
+            </td>
+        </form>
     </div>
     <div class="col-2">
         <a class="btn btn-outline-success"  href="/logout">Logout</a>
@@ -124,10 +134,10 @@
                                                                         <select required name="roleSet"  multiple >
                                                                             <option th:each  = "role : ${user.roleSet}" style="color:#ff00ff" th:text="${role.rolesName}" >
                                                                             </option>
-                                                                            <option value="{user}">user</option>
-                                                                            <option value="{admin}">admin</option>
-                                                                            <option value="{otherUser}">otherUser</option>
-                                                                            <option value="{webUser}">webUser</option>
+                                                                            <option value="user">user</option>
+                                                                            <option value="admin">admin</option>
+                                                                            <option value="otherUser">otherUser</option>
+                                                                            <option value="webUser">webUser</option>
                                                                         </select>
                                                                     </td>
                                                                 </tr>
@@ -279,12 +289,16 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
-
-                </div>
             </div>
         </div>
+
+        <div class="tab-content">
+            <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
+
+            </div>
+        </div>
+
+
     </div>
 </div>
 

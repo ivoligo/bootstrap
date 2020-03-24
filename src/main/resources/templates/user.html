@@ -10,7 +10,17 @@
 <body>
     <nav class="navbar navbar-dark bg-dark">
 
-        <div class="col-8"></div>
+        <div class="col-8">
+            <form th:action="@{/user}">
+                <span style="color:white"><b>
+                <td  th:text="${user.email}"> </b> with roles:</span>
+                <span style="color:yellow">
+                <td   th:each="role : ${user.roleSet}" >
+                    <span th:text="${role.rolesName}"></span>
+                </td>
+            </span>
+            </form>
+        </div>
         <div class="col-2">
             <a class="btn btn-outline-success"  href="/logout">Logout</a>
         </div>
@@ -25,10 +35,7 @@
             <div class="col-10">
                 <div class="tab-content" id="v-pills-tabContent">
                     <h2>User information page</h2>
-<!--                    <div class="tab-pane fade active" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">-->
-<!--                        <div class="tab-content">-->
-<!--                            <div role="tabpanel" class="tab-pane active" id="user">-->
-<!--                                <div class="alert alert-dark">User</div>-->
+
                     <form action="/user"  >
                                 <table class="table">
                                     <thead class="thead-dark">
@@ -61,9 +68,6 @@
                                      </tr>
                                     </tbody>
                                 </table>
-<!--                            </div>-->
-<!--                         </div>-->
-<!--                    </div>-->
                     </form>
                 </div>
             </div>

@@ -5,10 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name="users")
@@ -52,6 +49,7 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
 
     private Set<Role> roleSet;
+//    private Set<Optional<Role>> roleSet1;
 
     public User(){
     }
@@ -154,6 +152,9 @@ public class User implements UserDetails {
     public void setRoleSet(Set<Role> roleSet) {
         this.roleSet = roleSet;
     }
+//    public void setRoleSet(Set<Optional<Role>> roleSet) {
+//        this.roleSet1 = roleSet;
+//    }
 
     public void addRole(Role role){
         roleSet.add(role);
