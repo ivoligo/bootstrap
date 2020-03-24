@@ -20,6 +20,7 @@ import java.util.Set;
 public class AdminController {
     private UserService userService;
     private RoleService roleService;
+
     @Autowired
     public void setUserService(UserService userService){
         this.userService = userService;
@@ -71,22 +72,24 @@ public class AdminController {
 
     @PostMapping("/edit/{id}")
     public String editUser(
-//            @PathVariable("id") long id
-//            @PathVariable("roleSet") HashSet<Role> roleSet1
+//            @PathVariable("id") long id, Model model
              @ModelAttribute("user") User user
     )
     {
+
         // для проверки
         System.out.println(user.getRoleSet());
+
         //Установка новых ролей
-        Set<Role> roleSet = new HashSet<>();
-        for (Role role: user.getRoleSet()) {
-            System.out.println(role);
-            role = roleService.findRoleByName(role.getRolesName());
-            roleSet.add(role);
-            System.out.println(role.getRolesName());
-        }
-        user.setRoleSet(roleSet);
+//        Set<Role> roleSet = new HashSet<>();
+//        for (Role role: user.getRoleSet()) {
+//            System.out.println(role);
+//            role = roleService.findRoleByName(role.getRolesName());
+//            roleSet.add(role);
+//            System.out.println(role.getRolesName());
+//        }
+
+//        user.setRoleSet(roleSet);
         if(!userService.findUserByEmail(user.getEmail()).isPresent()
                 || userService.findUserByEmail1(user.getEmail()).getId().equals(user.getId()))
         {
