@@ -111,7 +111,9 @@ public class AdminController {
     }
 
     @GetMapping("/user")
-    public String userPage( ){
+    public String userPage(Model model ){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
         return "/admin";
     }
 }

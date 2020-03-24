@@ -33,7 +33,7 @@
         <div class="col-xl-2">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="v-pills-adminPanel-tab" data-toggle="pill" href="#v-pills-adminPanel" role="tab" aria-controls="v-pills-admin" aria-selected="true">Admin</a>
-                <a class="nav-link" id="v-pills-user-tab" data-toggle="pill" href="#v-pills-user" role="tab" aria-controls="v-pills-user" aria-selected="true">User</a>
+                <a class="nav-link" id="v-pills-user-tab" data-toggle="pill" href="#v-pills-user" role="tab" aria-controls="v-pills-user" aria-selected="false">User</a>
             </div>
         </div>
 
@@ -85,7 +85,6 @@
                                                 value="Изменить" style="float:left" >изменить
                                         </button>
                                         <!-- // modal-->
-
                                         <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalEditTitle" aria-hidden="true" th:attr="id='modalEdit-'+${user.id}">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content" >
@@ -289,46 +288,47 @@
                         </div>
                     </div>
                 </div>
+                <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
+                    <form action="/admin/user"  >
+                        <table class="table">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">Логин</th>
+                                <th scope="col">Пароль</th>
+                                <th scope="col">Имя</th>
+                                <th scope="col">Фамилия</th>
+                                <th scope="col">Город</th>
+                                <th scope="col">Возраст</th>
+                                <th scope="col">Роль</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row"  th:text="${user.id}"></th>
+                                <td th:text="${user.email}"></td>
+                                <td th:text="${user.password}"></td>
+                                <td th:text="${user.name}"></td>
+                                <td th:text="${user.surname}"></td>
+                                <td th:text="${user.city}"></td>
+                                <td th:text="${user.age}"></td>
+                                <td>
+                                    <li th:each="role : ${user.roleSet}">
+                                        <span th:text="${role.rolesName}">Роль</span>
+                                    </li>
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
             </div>
         </div>
 
-        <div class="tab-content">
-            <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
-                <form action="/admin/user">
-                    <table class="table">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">Логин</th>
-                            <th scope="col">Пароль</th>
-                            <th scope="col">Имя</th>
-                            <th scope="col">Фамилия</th>
-                            <th scope="col">Город</th>
-                            <th scope="col">Возраст</th>
-                            <th scope="col">Роль</th>
-                        </tr>
-                        </thead>
-                        <!--                    <tbody>-->
-                        <!--                    <tr>-->
-                        <!--                        <th scope="row"  th:value="${user.id}"></th>-->
-                        <!--                        <td th:text="${user.email}"></td>-->
-                        <!--                        <td th:text="${user.password}"></td>-->
-                        <!--                        <td th:text="${user.name}"></td>-->
-                        <!--                        <td th:text="${user.surname}"></td>-->
-                        <!--                        <td th:text="${user.city}"></td>-->
-                        <!--                        <td th:text="${user.age}"></td>-->
-                        <!--                        <td>-->
-                        <!--                            <li th:each="role : ${user.roleSet}">-->
-                        <!--                                <span th:text="${role.rolesName}">Роль</span>-->
-                        <!--                            </li>-->
-                        <!--                        </td>-->
-
-                        <!--                    </tr>-->
-                        <!--                    </tbody>-->
-                    </table>
-                </form>
-            </div>
-        </div>
+<!--        <div class="tab-content">-->
+<!--           -->
+<!--        </div>-->
 
 
     </div>
