@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:thth="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Список пользователей</title>
+</head>
+<body>
+
+
+
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="col-8">
+    </div>
+    <div class="col-2">
+        <a class="btn btn-outline-success"  href="/logout">Logout</a>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-xl-2">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-adminPanel-tab" data-toggle="pill" href="#v-pills-adminPanel" role="tab" aria-controls="v-pills-admin" aria-selected="true">Admin</a>
+                <a class="nav-link" id="v-pills-user-tab" data-toggle="pill" href="#v-pills-user" role="tab" aria-controls="v-pills-user" aria-selected="true">User</a>
+            </div>
+        </div>
+
+        <div class="col-10">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-adminPanel" role="tabpanel" aria-labelledby="v-pills-adminPanel-tab">
+                    <h2>Admin panel</h2>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active"  href="#userslist" role="tab" data-toggle="tab" aria-selected="true">Users table</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  href="#newuser" role="tab" data-toggle="tab" aria-selected="false">New User</a></li>
+                    </ul>
+                    <br>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="userslist">
+                            <div class="alert alert-dark">All Users</div>
+                            <table class="table">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">id</th>
+                                    <th scope="col">Логин</th>
+                                    <th scope="col">Пароль</th>
+                                    <th scope="col">Имя</th>
+                                    <th scope="col">Фамилия</th>
+                                    <th scope="col">Город</th>
+                                    <th scope="col">Возраст</th>
+                                    <th scope="col">Роль</th>
+                                    <th scope="col">Дествие</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="user : ${users}">
+                                    <th scope="row" th:text="${user.id}"></th>
+                                    <td th:text="${user.email}"></td>
+                                    <td th:text="${user.password}"></td>
+                                    <td th:text="${user.name}"></td>
+                                    <td th:text="${user.surname}"></td>
+                                    <td th:text="${user.city}"></td>
+                                    <td th:text="${user.age}"></td>
+                                    <td>
+                                        <li th:each="role : ${user.roleSet}">
+                                            <span th:text="${role.rolesName}">Роль</span>
+                                        </li>
+                                    </td>
+                                    <td>
+<!--                                         <a href="#modalEdit" class="btn btn-primary" data-toggle="modal" >Изменить</a>-->
+<!--                                        data-target="#modalEdit" data-userId="#userID"-->
+
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#modalEdit-'+${user.id}"
+                                                value="Изменить" style="float:left">
+                                            изменить
+
+                                        </button>
+
+                                        <!-- // modal-->
+                                        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalEditTitle" aria-hidden="true" th:attr="id='modalEdit-'+${user.id}">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalEditTitle" >Изменение данных пользователя</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form   >
+                                                            <table >
+                                                                <tr>
+                                                                    <td><label>ID</label></td>
+                                                                    <td> <input required type="text" name="id" th:value="${user.id}" disabled ></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><label>Имя</label></td>
+                                                                    <td><input required type="text" name="name" th:value="${user.name}"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><label>Фамилия</label></td>
+                                                                    <td><input required type="text" name="surname" th:value="${user.surname}" ></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>email/login</td>
+                                                                    <td><input required type="email" name="email" th:value="${user.email}" ></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Пароль</td>
+                                                                    <td><input required type="password" name="password" th:value="${user.password}" ></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Город</td>
+                                                                    <td><input required type="text" name="city" th:value="${user.city}" ></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Возраст</td>
+                                                                    <td><input required type="number" name="age" th:value="${user.age}" ></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Роли</td>
+                                                                    <td>
+                                                                        <select required type="text" name="roleSet" multiple >
+                                                                            <option th:each  = "role : ${user.roleSet}" style="color:#ff00ff" th:text="${role.rolesName}" >
+                                                                            </option>
+                                                                            <option value="{user}">user</option>
+                                                                            <option value="{admin}">admin</option>
+                                                                            <option value="{otherUser}">otherUser</option>
+                                                                            <option value="{webUser}">webUser</option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer" >
+                                                        <form th:action="@{/admin/edit/{id}(id=${user.id})}" th:object="${user}" method="post">
+                                                            <input required type="hidden" name="id" th:value="${user.id}">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                                        <input type="submit" class="btn btn-primary"  value="Save Change">
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!--  // modal-->
+
+                                        <form>
+                                            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete"  >Ужалить</a>
+
+
+                                        </form>
+
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+
+
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="newuser" >
+                            <form th:action="@{/admin/add}" method="post">
+                                <table class="form-group" >
+                                    <thead class="thead-dark">
+                                    <div class="alert alert-dark">Add new user</div>
+                                    </thead>
+                                    <tr>
+                                        <td><label for="name" >Имя</label></td>
+                                        <td><input class="form-control" required type="text"  id="name"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="surname">Фамилия</label></td>
+                                        <td><input class="form-control" required type="text" name="surname" id="surname"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="email">email/login</label></td>
+                                        <td><input class="form-control" required type="email" name="email" id="email"  placeholder="email, она же логин"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="password"> Пароль</label></td>
+                                        <td><input class="form-control" required type="password" name="password" id="password"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="city">Город</label></td>
+                                        <td><input class="form-control" required type="text" name="city"  id="city"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="age">Возраст</label> </td>
+                                        <td><input class="form-control" required type="number" name="age"  id="age"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="roleSet">Роли </label>  </td>
+                                        <td>
+                                            <select class="form-control" required name = "roleSet" multiple id="roleSet">
+                                                <option value="user">user</option>
+                                                <option value="admin">admin</option>
+                                                <option value="otherUser">otherUser</option>
+                                                <option value="webUser">webUser</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!--                                    <button type="button" class="btn btn-info">save</button>-->
+                                <input class="btn btn-info" type="submit" value="Сохранить">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<br>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
