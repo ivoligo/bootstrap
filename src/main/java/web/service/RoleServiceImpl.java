@@ -7,6 +7,7 @@ import web.dao.RoleDao;
 import web.model.Role;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -40,5 +41,10 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public List<Role> findRoleListByName(List<String> name) {
         return roleDao.findRoleListByName(name);
+    }
+
+    @Override
+    public Optional<Role> findRoleByNameOpt(String name) {
+        return roleDao.findRoleByNameOpt(name);
     }
 }

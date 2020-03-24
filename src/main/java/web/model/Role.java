@@ -6,8 +6,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "roles")
-@NamedQueries({
-        @NamedQuery(name= Role.ROLE_FIND_ALL,
+@NamedQueries( {
+        @NamedQuery(name = Role.ROLE_FIND_ALL,
                 query = "select r from Role r"),
         @NamedQuery(name = Role.FIND_BY_NAME,
                 query = "select distinct r from Role r where r.rolesName = :rolesName"),

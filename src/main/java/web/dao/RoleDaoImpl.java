@@ -7,6 +7,7 @@ import web.model.Role;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
@@ -37,5 +38,9 @@ public class RoleDaoImpl implements RoleDao{
     @Override
     public Role findRoleByName(String name) {
         return em.createNamedQuery(Role.FIND_BY_NAME, Role.class).setParameter("rolesName", name).getSingleResult();
+    }
+    @Override
+    public Optional<Role> findRoleByNameOpt(String name) {
+        return em.createNamedQuery(Role.FIND_BY_NAME, Role.class).setParameter("rolesName", name).getResultList().stream().findFirst();
     }
 }

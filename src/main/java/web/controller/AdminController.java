@@ -12,6 +12,7 @@ import web.service.UserService;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -50,6 +51,7 @@ public class AdminController {
             role = roleService.findRoleByName(role.getRolesName());
             roleSet.add(role);
         }
+
         user.setRoleSet(roleSet);
         if (!userService.findUserByEmail(user.getEmail()).isPresent()) {
             userService.create(user);
@@ -69,19 +71,20 @@ public class AdminController {
 
     @PostMapping("/edit/{id}")
     public String editUser(
-            @ModelAttribute("user") User user, Model model
+//            @PathVariable("id") long id
+//            @PathVariable("roleSet") HashSet<Role> roleSet1
+             @ModelAttribute("user") User user
     )
     {
-        Set<Role> roleSet = new HashSet<>();
-        model.addAttribute("roleSet", roleSet);
-        System.out.println();
+        // для проверки
+        System.out.println(user.getRoleSet());
         //Установка новых ролей
-        System.out.println(user.getId());
-        System.out.println(roleSet);
-
+        Set<Role> roleSet = new HashSet<>();
         for (Role role: user.getRoleSet()) {
+            System.out.println(role);
             role = roleService.findRoleByName(role.getRolesName());
             roleSet.add(role);
+            System.out.println(role.getRolesName());
         }
         user.setRoleSet(roleSet);
         if(!userService.findUserByEmail(user.getEmail()).isPresent()
@@ -97,9 +100,6 @@ public class AdminController {
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") long id
     ){
-//        model.getAttribute("id");
-//        long id = Long.parseLong("id");
-
         User user = userService.findUserById(id);
         userService.delete(user);
         return "redirect:/admin";
