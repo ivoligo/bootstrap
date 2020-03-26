@@ -57,7 +57,6 @@
                                 <tr>
                                     <th scope="col">id</th>
                                     <th scope="col">Логин</th>
-                                    <th scope="col">Пароль</th>
                                     <th scope="col">Имя</th>
                                     <th scope="col">Фамилия</th>
                                     <th scope="col">Город</th>
@@ -70,7 +69,6 @@
                                 <tr th:each="user : ${users}">
                                     <th scope="row" th:text="${user.id}"></th>
                                     <td th:text="${user.email}"></td>
-                                    <td th:text="${user.password}"></td>
                                     <td th:text="${user.name}"></td>
                                     <td th:text="${user.surname}"></td>
                                     <td th:text="${user.city}"></td>
@@ -190,11 +188,6 @@
                                                             </tr>
 
                                                             <tr>
-                                                                <td>Пароль</td>
-                                                                <td><input required type="password" name="password" th:value="${user.password}" disabled></td>
-                                                            </tr>
-
-                                                            <tr>
                                                                 <td>Город</td>
                                                                 <td><input required type="text" name="city" th:value="${user.city}" disabled></td>
                                                             </tr>
@@ -295,7 +288,6 @@
                             <tr>
                                 <th scope="col">id</th>
                                 <th scope="col">Логин</th>
-                                <th scope="col">Пароль</th>
                                 <th scope="col">Имя</th>
                                 <th scope="col">Фамилия</th>
                                 <th scope="col">Город</th>
@@ -307,7 +299,6 @@
                             <tr>
                                 <th scope="row"  th:text="${user.id}"></th>
                                 <td th:text="${user.email}"></td>
-                                <td th:text="${user.password}"></td>
                                 <td th:text="${user.name}"></td>
                                 <td th:text="${user.surname}"></td>
                                 <td th:text="${user.city}"></td>
