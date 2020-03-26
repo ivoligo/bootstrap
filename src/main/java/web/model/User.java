@@ -1,8 +1,10 @@
 package web.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.*;
@@ -19,6 +21,7 @@ import java.util.*;
 public class User implements UserDetails {
     public static final String FIND_ALL = "User.findAll";
     public static final String FIND_BY_EMAIL = "User.findByEmail";
+
 
     @Id
     @Column(name = "id")
@@ -152,9 +155,6 @@ public class User implements UserDetails {
     public void setRoleSet(Set<Role> roleSet) {
         this.roleSet = roleSet;
     }
-//    public void setRoleSet(Set<Optional<Role>> roleSet) {
-//        this.roleSet1 = roleSet;
-//    }
 
     public void addRole(Role role){
         roleSet.add(role);

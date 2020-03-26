@@ -40,7 +40,6 @@ public class UserDaoImpl implements UserDao{
     @Override
     public Optional<User> findUserByEmail(String email) {
         return em.createNamedQuery(User.FIND_BY_EMAIL, User.class).setParameter("email", email).getResultList().stream().findFirst();
-//        return em.createNamedQuery(User.FIND_BY_EMAIL, User.class).setParameter("email", email).getSingleResult();
     }
 
     @Override

@@ -8,7 +8,6 @@ import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
     List<User> getAllUser();
-//    List<User> getAllUsersWithRole();
     void create(User user);
     void update(User user);
     void delete(User user);
